@@ -11,7 +11,7 @@ app = FastAPI(
 )
 
 origins = [
-    "https://hackathon-ii-phase-ll.vercel.app",
+    "https://hackathon-ii-kappa.vercel.app",
 ]
 
 app.add_middleware(
