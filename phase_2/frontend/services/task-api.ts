@@ -42,7 +42,7 @@ class TaskApiService {
       queryParams.append('completed', completed.toString());
     }
 
-    const response = await apiClient.get<Task[]>(`/tasks?${queryParams}`);
+    const response = await apiClient.get<Task[]>(`/tasks/?${queryParams}`);
     return { tasks: response.data, total: response.data.length }; // Note: actual total might come from API differently
   }
 
@@ -55,13 +55,13 @@ class TaskApiService {
       notification_settings: data.notification_settings ? JSON.stringify(data.notification_settings) : "{}"
     };
 
-    const response = await apiClient.post<Task>(`/tasks`, processedData);
+    const response = await apiClient.post<Task>(`/tasks/`, processedData);
     return response.data;
   }
 
   // Get a specific task (for the authenticated user)
   static async getTask(taskId: number): Promise<Task> {
-    const response = await apiClient.get<Task>(`/tasks/${taskId}`);
+    const response = await apiClient.get<Task>(`/tasks/${taskId}/`);
     return response.data;
   }
 
@@ -79,18 +79,18 @@ class TaskApiService {
       Object.entries(processedData).filter(([_, value]) => value !== undefined)
     );
 
-    const response = await apiClient.put<Task>(`/tasks/${taskId}`, filteredData);
+    const response = await apiClient.put<Task>(`/tasks/${taskId}/`, filteredData);
     return response.data;
   }
 
   // Delete a task (for the authenticated user)
   static async deleteTask(taskId: number): Promise<void> {
-    await apiClient.delete(`/tasks/${taskId}`);
+    await apiClient.delete(`/tasks/${taskId}/`);
   }
 
   // Toggle task completion status (for the authenticated user)
   static async toggleTaskCompletion(taskId: number): Promise<Task> {
-    const response = await apiClient.patch<Task>(`/tasks/${taskId}/toggle-complete`);
+    const response = await apiClient.patch<Task>(`/tasks/${taskId}/toggle-complete/`);
     return response.data;
   }
 }
