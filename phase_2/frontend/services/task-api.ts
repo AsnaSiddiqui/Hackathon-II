@@ -61,7 +61,7 @@ class TaskApiService {
 
   // Get a specific task (for the authenticated user)
   static async getTask(taskId: number): Promise<Task> {
-    const response = await apiClient.get<Task>(`/tasks/${taskId}/`);
+    const response = await apiClient.get<Task>(`/tasks/${taskId}`);
     return response.data;
   }
 
@@ -79,18 +79,18 @@ class TaskApiService {
       Object.entries(processedData).filter(([_, value]) => value !== undefined)
     );
 
-    const response = await apiClient.put<Task>(`/tasks/${taskId}/`, filteredData);
+    const response = await apiClient.put<Task>(`/tasks/${taskId}`, filteredData);
     return response.data;
   }
 
   // Delete a task (for the authenticated user)
   static async deleteTask(taskId: number): Promise<void> {
-    await apiClient.delete(`/tasks/${taskId}/`);
+    await apiClient.delete(`/tasks/${taskId}`);
   }
 
   // Toggle task completion status (for the authenticated user)
   static async toggleTaskCompletion(taskId: number): Promise<Task> {
-    const response = await apiClient.patch<Task>(`/tasks/${taskId}/toggle-complete/`);
+    const response = await apiClient.patch<Task>(`/tasks/${taskId}/toggle-complete`);
     return response.data;
   }
 }
