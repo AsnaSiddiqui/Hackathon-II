@@ -4,8 +4,16 @@ import axios from 'axios';
 // Create an Axios instance with base configuration
 const apiClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
+
+apiClient.interceptors.request.use((config:any) => {
+  console.log("FINAL REQUEST URL:", config.baseURL + config.url);
+  return config;
+});
 
 // Request interceptor to add JWT token to all requests
 apiClient.interceptors.request.use(
