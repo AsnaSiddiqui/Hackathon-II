@@ -9,12 +9,6 @@ const apiClient = axios.create({
   },
 });
 
-
-apiClient.interceptors.request.use((config:any) => {
-  console.log("FINAL REQUEST URL:", config.baseURL + config.url);
-  return config;
-});
-
 // Request interceptor to add JWT token to all requests
 apiClient.interceptors.request.use(
   async (config) => {
